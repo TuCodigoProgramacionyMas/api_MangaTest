@@ -1,6 +1,6 @@
 {
-  "version": 3,
-  "builds": [{ "src": "./index.js" }, { "use": "@versel/node" }]
+  "version": 2,
+  "builds": [{ "src": "./index.js" }, { "use": "@vercel/node" }]
   , "routes": [
     {
         "src":"/(.*)",
