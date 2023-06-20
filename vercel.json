@@ -1,10 +1,14 @@
 {
-  "version": 2,
-  "builds": [{ "src": "./index.js" }, { "use": "@vercel/node" }]
-  , "routes": [
-    {
-        "src":"/(.*)",
-        "dest":"/"
+    "version": 2,
+    "name": "my-app",
+    "builds": [
+      { "src": "index.js", "use": "@vercel/node" }
+    ],
+    "routes": [
+      { "src": "/(.*)", "dest": "/" }
+    ],
+    "env": {
+      "CUSTOM_ENV_VARIABLE": "my value"
     }
-  ]
-}
+  }
+  
