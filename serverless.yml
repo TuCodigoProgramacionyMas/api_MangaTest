@@ -1,2 +1,0 @@
-myApp:
-  component: "@sls-next/serverless-component@3.3.0" # verifica la versión más reciente

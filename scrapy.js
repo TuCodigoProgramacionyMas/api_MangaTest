@@ -1,37 +1,21 @@
-import chromium from "chrome-aws-lambda";
-import puppeteer from "puppeteer-core";
+import puppeteer from 'puppeteer';
 
 async function getBrowserInstance() {
-  const executablePath = await chromium.executablePath;
-
-  if (!executablePath) {
-    return puppeteer.launch({
-      args: chromium.args,
-      headless: true,
-      ignoreHTTPSErrors: true,
-    });
-  }
-
-  return chromium.puppeteer.launch({
-    args: chromium.args,
-    executablePath,
-    headless: chromium.headless,
+  return puppeteer.launch({
+    headless: true,
     ignoreHTTPSErrors: true,
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+    ],
   });
 }
 
-
 export default async function getCombustibles(req, res) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With,content-type"
-  );
-  res.setHeader("Access-Control-Allow-Credentials", true);
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
 
   // Check if url query parameter is available
   const targetUrl = req.query.url;
@@ -46,8 +30,8 @@ export default async function getCombustibles(req, res) {
 
     const page = await browser.newPage();
     await page.setRequestInterception(true);
-    page.on("request", (request) =>
-      ["image", "stylesheet"].includes(request.resourceType())
+    page.on('request', (request) =>
+      ['image', 'stylesheet'].includes(request.resourceType())
         ? request.abort()
         : request.continue()
     );
