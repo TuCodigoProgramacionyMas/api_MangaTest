@@ -7,7 +7,7 @@ const token =
   "dfsdfdfsdfwetf345dsfudf234234234udsfnsjdn3242uheirfnjidfijdbfuhsdunfkenrdnsfinds";
 async function getBrowserInstance() {
   const executablePath = await chromium.executablePath;
-  const puppeteer = require("puppeteer");
+  const puppeteer = require("puppeteer-core");
   if (!executablePath) {
     // running locally
 
