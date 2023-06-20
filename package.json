@@ -17,6 +17,8 @@
   },
   "devDependencies": {
     "eslint": "8.43.0",
-    "eslint-config-next": "13.4.6"
+    "eslint-config-next": "13.4.6",
+    "serverless": "^3.32.2",
+    "serverless-next.js": "^1.15.0-alpha.2"
   }
 }
