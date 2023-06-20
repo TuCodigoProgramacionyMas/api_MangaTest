@@ -10,13 +10,13 @@
   },
   "dependencies": {
     "chrome-aws-lambda": "^10.1.0",
-    "next": "12.1.5",
-    "puppeteer": "^13.7.0",
-    "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "next": "13.4.6",
+    "puppeteer": "^20.7.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "eslint": "8.14.0",
-    "eslint-config-next": "12.1.5"
+    "eslint": "8.43.0",
+    "eslint-config-next": "13.4.6"
   }
 }
