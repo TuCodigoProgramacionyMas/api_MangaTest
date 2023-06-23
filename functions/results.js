@@ -4,7 +4,7 @@ const puppeteer = require('puppeteer');
 exports.handler = async function(event, context) {
   const browser = await puppeteer.launch({
     args: chromium.args,
-    executablePath: await chromium.executablePath,
+    executablePath: process.env.CHROME_EXECUTABLE_PATH || await chromium.executablePath,
     headless: true,
   });
 
