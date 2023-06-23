@@ -1,9 +1,7 @@
-
-
 const chromium = require('chrome-aws-lambda');
 const puppeteer = require('puppeteer-core');
 
-exports.handler = async function(event, context) {
+module.exports = async function(req, res) {
   const browser = await puppeteer.launch({
     args: chromium.args,
     executablePath: await chromium.executablePath,
@@ -19,15 +17,11 @@ exports.handler = async function(event, context) {
 
   await browser.close();
 
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      status: 'Ok',
-      page: {
-        title,
-        description
-      }
-    })
-  };
+  res.status(200).send({
+    status: 'Ok',
+    page: {
+      title,
+      description
+    }
+  });
 };
-
