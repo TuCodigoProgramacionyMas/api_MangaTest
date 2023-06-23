@@ -1,27 +1,47 @@
 const chromium = require('chrome-aws-lambda');
 const puppeteer = require('puppeteer-core');
 
-module.exports = async function(req, res) {
-  const browser = await puppeteer.launch({
-    args: chromium.args,
-    executablePath: await chromium.executablePath,
-    headless: chromium.headless,
-  });
+module.exports = async (req, res) => {
+  let browser = null;
+  
+  try {
+    const executablePath = await chromium.executablePath;
 
-  const page = await browser.newPage();
+    // Configuración de lanzamiento del navegador
+    browser = await puppeteer.launch({
+      args: chromium.args,
+      executablePath,
+      headless: chromium.headless,
+    });
 
-  await page.goto('https://spacejelly.dev/');
+    const page = await browser.newPage();
 
-  const title = await page.title();
-  const description = await page.$eval('meta[name="description"]', element => element.content);
+    await page.goto('https://spacejelly.dev/');
 
-  await browser.close();
+    const title = await page.title();
+    const description = await page.$eval(
+      'meta[name="description"]',
+      (element) => element.content
+    );
 
-  res.status(200).send({
-    status: 'Ok',
-    page: {
-      title,
-      description
+    await browser.close();
+
+    res.status(200).json({
+      status: 'Ok',
+      page: {
+        title,
+        description,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    
+    res.status(500).json({
+      error: 'Error al lanzar el navegador o al extraer los datos',
+    });
+    
+    if (browser) {
+      await browser.close();
     }
-  });
+  }
 };
